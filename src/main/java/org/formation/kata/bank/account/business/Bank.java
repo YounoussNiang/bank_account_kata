@@ -61,6 +61,5 @@ public class Bank {
             stringifyBalance = customer.displayBalanceAccount();
         }
         return stringifyBalance;
-        //"100.OO £";
     }
 }
