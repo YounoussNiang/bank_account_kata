@@ -24,7 +24,7 @@ public class Balance {
 
     @Override
     public String toString() {
-        return value+" £";
+        return value + " " + Currency.STERLING;
     }
 
     @Override

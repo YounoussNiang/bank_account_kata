@@ -22,9 +22,15 @@ public class Customer {
         return account.subtract(amount);
     }
 
-    public String displayBalanceAccount() {
-        return account.displayBalance();
+    public String checkBalanceAccount() {
+        return account.checkBalance();
     }
+
+
+    public String displayAccountTransactionHistory() {
+        return account.generateTransactionHistory();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

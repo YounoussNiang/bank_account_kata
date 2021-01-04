@@ -1,17 +1,23 @@
 package org.formation.kata.bank.account.business;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Account {
     private final Balance balance;
+    private final List<Transaction> transactionHistory = new ArrayList<>();
 
     public Account(double amount) {
         balance = new Balance(amount);
     }
 
     public Balance add(double amount){
+        transactionHistory.add(new Transaction(Operation.DEPOSIT,amount));
         return balance.increase(amount);
     }
 
     public Balance subtract(double amount) {
+        transactionHistory.add(new Transaction(Operation.WITHDRAW,amount));
         return balance.decrease(amount);
     }
 
@@ -19,7 +25,16 @@ public class Account {
         return balance.isNegativeAfterWithdraw(amount);
     }
 
-    public String displayBalance() {
+    public String checkBalance() {
         return balance.toString();
+    }
+
+    public String generateTransactionHistory() {
+        StringBuilder history = new StringBuilder();
+        for(Transaction transaction : transactionHistory){
+            history.append(transaction.toString());
+            history.append("\n");
+        }
+        return history.toString().trim();
     }
 }
