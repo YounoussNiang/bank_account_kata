@@ -3,7 +3,6 @@ import java.util.Optional;
 
 public class Bank {
     private final List<Client> clients;
-    private final double MINIMUM_DEPOSIT_VALUE = 0.01;
 
     public Bank(List<Client> clients) {
         this.clients = clients;
@@ -24,6 +23,7 @@ public class Bank {
     }
 
     private void checkDepositValidity(double amount) {
+        double MINIMUM_DEPOSIT_VALUE = 0.01;
         if(amount < MINIMUM_DEPOSIT_VALUE)
             throw new TooLowAmountException();
     }

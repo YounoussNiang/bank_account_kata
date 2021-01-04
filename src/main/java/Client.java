@@ -1,7 +1,7 @@
 import java.util.Objects;
 
 public class Client {
-    private Account account;
+    private final Account account;
 
     public Client(Account account) {
         this.account = account;
