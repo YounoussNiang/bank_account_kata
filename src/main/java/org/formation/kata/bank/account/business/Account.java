@@ -1,3 +1,5 @@
+package org.formation.kata.bank.account.business;
+
 public class Account {
     private final Balance balance;
 
@@ -6,10 +8,14 @@ public class Account {
     }
 
     public Balance add(double amount){
-        return balance.increment(amount);
+        return balance.increase(amount);
     }
 
     public Balance subtract(double amount) {
         return balance.decrease(amount);
+    }
+
+    public boolean hasTriggerAnOverDraft(double amount) {
+        return balance.isNegativeAfterWithdraw(amount);
     }
 }

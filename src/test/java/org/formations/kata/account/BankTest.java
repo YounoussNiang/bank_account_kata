@@ -1,3 +1,11 @@
+package org.formations.kata.account;
+
+import org.formation.kata.bank.account.business.Account;
+import org.formation.kata.bank.account.business.Balance;
+import org.formation.kata.bank.account.business.Bank;
+import org.formation.kata.bank.account.business.Client;
+import org.formation.kata.bank.account.exception.InsufficientBalanceException;
+import org.formation.kata.bank.account.exception.TooLowAmountException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -49,5 +57,15 @@ public class BankTest {
         Balance newBalance = bank.withdraw(client, 50.5);
 
         assertEquals(newBalance, new Balance(179.5));
+    }
+
+    @Test
+    public void shouldThrowInsufficientBalanceExceptionWhenAmountToWithdrawIsSuperiorToBalance(){
+        Account account = new Account(50.0);
+        Client client = new Client(account);
+        List<Client> clients = List.of(client);
+        Bank bank = new Bank(clients);
+
+        assertThrows(InsufficientBalanceException.class, () -> bank.withdraw(client, 100.0));
     }
 }

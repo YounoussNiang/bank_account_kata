@@ -1,3 +1,5 @@
+package org.formation.kata.bank.account.business;
+
 import java.util.Objects;
 
 public class Balance {
@@ -8,12 +10,16 @@ public class Balance {
         this.value = value;
     }
 
-    public Balance increment(double amount){
+    public Balance increase(double amount){
         return new Balance(value + amount);
     }
 
     public Balance decrease(double amount) {
         return new Balance(value - amount);
+    }
+
+    public boolean isNegativeAfterWithdraw(double amount) {
+        return (value - amount < 0);
     }
 
     @Override

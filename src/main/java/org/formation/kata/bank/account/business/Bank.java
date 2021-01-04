@@ -1,3 +1,8 @@
+package org.formation.kata.bank.account.business;
+
+import org.formation.kata.bank.account.exception.InsufficientBalanceException;
+import org.formation.kata.bank.account.exception.TooLowAmountException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +28,7 @@ public class Bank {
     }
 
     public Balance withdraw(Client currentClient, double amount) {
+        checkWithdrawValidity(currentClient, amount);
         Balance newBalance = null;
         Optional<Client> optionalClient = clients.stream()
                 .filter(currentClient::equals)
@@ -40,5 +46,9 @@ public class Bank {
             throw new TooLowAmountException();
     }
 
+    private void checkWithdrawValidity(Client client, double amount){
+        if(client.hasToUseOverDraft(amount))
+            throw new InsufficientBalanceException();
+    }
 
 }
