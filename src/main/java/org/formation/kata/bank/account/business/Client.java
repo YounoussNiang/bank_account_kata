@@ -1,3 +1,5 @@
+package org.formation.kata.bank.account.business;
+
 import java.util.Objects;
 
 public class Client {
@@ -7,8 +9,16 @@ public class Client {
         this.account = account;
     }
 
+    public boolean hasToUseOverDraft(double amount){
+        return account.hasTriggerAnOverDraft(amount);
+    }
+
     public Balance deposit(double amount){
         return account.add(amount);
+    }
+
+    public Balance withdraw(double amount) {
+        return account.subtract(amount);
     }
 
     @Override
@@ -23,4 +33,5 @@ public class Client {
     public int hashCode() {
         return Objects.hash(account);
     }
+
 }
