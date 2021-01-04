@@ -8,6 +8,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class BankTest {
 
     @Test
+    public void shouldNotReturnTheBalanceIfClientDoesntExistInTheBank(){
+        Account account = new Account(230.0);
+        Client client = new Client(account);
+        Bank bank = new Bank(List.of());
+
+        Balance newBalance = bank.deposit(client, 1.0);
+
+        assertEquals(newBalance, null);
+    }
+
+    @Test
     public void shouldReturnNewBalanceWhenDeposingNewAmount(){
         Account account = new Account(230.0);
         Client client = new Client(account);
