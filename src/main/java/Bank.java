@@ -2,16 +2,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class Bank {
-    private List<Client> clients;
+    private final List<Client> clients;
+    private final double MINIMUM_DEPOSIT_VALUE = 0.01;
 
     public Bank(List<Client> clients) {
         this.clients = clients;
     }
 
     public Balance deposit(Client currentClient, double amount) {
+        checkDepositValidity(amount);
         Balance newBalance = null;
         Optional<Client> optionalClient = clients.stream()
-                .filter(client1 -> currentClient.equals(client1))
+                .filter(currentClient::equals)
                 .findFirst();
         if(optionalClient.isPresent()){
             Client client = optionalClient.get();
@@ -19,5 +21,10 @@ public class Bank {
         }
 
         return newBalance;
+    }
+
+    private void checkDepositValidity(double amount) {
+        if(amount < MINIMUM_DEPOSIT_VALUE)
+            throw new TooLowAmountException();
     }
 }
