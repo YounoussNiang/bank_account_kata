@@ -21,6 +21,9 @@ public class Client {
         return account.subtract(amount);
     }
 
+    public String displayBalanceAccount() {
+        return account.displayBalance();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

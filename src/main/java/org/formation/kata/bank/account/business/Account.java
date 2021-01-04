@@ -18,4 +18,8 @@ public class Account {
     public boolean hasTriggerAnOverDraft(double amount) {
         return balance.isNegativeAfterWithdraw(amount);
     }
+
+    public String displayBalance() {
+        return balance.toString();
+    }
 }

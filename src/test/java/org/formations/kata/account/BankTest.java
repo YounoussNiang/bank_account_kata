@@ -72,12 +72,12 @@ public class BankTest {
 
     @Test
     public void shouldDisplayAccountBalance(){
-        Account account = new Account(100.0);
+        Account account = new Account(120.45);
         Client client = new Client(account);
         List<Client> clients = List.of(client);
         Bank bank = new Bank(clients);
 
-        assertEquals("100.OO £", bank.checkBalanceAccount());
+        assertEquals("120.45 £", bank.checkBalanceAccount(client));
 
     }
 }

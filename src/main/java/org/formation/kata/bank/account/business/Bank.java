@@ -51,7 +51,16 @@ public class Bank {
             throw new InsufficientBalanceException();
     }
 
-    public String checkBalanceAccount() {
-        return "100.OO £";
+    public String checkBalanceAccount(Client currentClient) {
+        String stringifyBalance = null;
+        Optional<Client> optionalClient = clients.stream()
+                .filter(currentClient::equals)
+                .findFirst();
+        if(optionalClient.isPresent()) {
+            Client client = optionalClient.get();
+            stringifyBalance = client.displayBalanceAccount();
+        }
+        return stringifyBalance;
+        //"100.OO £";
     }
 }
