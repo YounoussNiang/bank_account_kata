@@ -3,16 +3,16 @@ package org.formation.kata.bank.account.business;
 public class Transaction {
 
     private final Operation operation;
-    private final double value;
+    private final double amount;
 
-    public Transaction(Operation operation, double value) {
+    public Transaction(Operation operation, double amount) {
         this.operation = operation;
-        this.value = value;
+        this.amount = amount;
     }
 
     @Override
     public String toString() {
         return  operation +
-                ": " + value + " "+ Currency.STERLING;
+                ": " + amount + " "+ Currency.STERLING;
     }
 }

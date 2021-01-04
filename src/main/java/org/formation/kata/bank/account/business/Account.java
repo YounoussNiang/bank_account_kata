@@ -2,6 +2,7 @@ package org.formation.kata.bank.account.business;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Account {
     private final Balance balance;
@@ -30,11 +31,9 @@ public class Account {
     }
 
     public String generateTransactionHistory() {
-        StringBuilder history = new StringBuilder();
-        for(Transaction transaction : transactionHistory){
-            history.append(transaction.toString());
-            history.append("\n");
-        }
-        return history.toString().trim();
+        String history = transactionHistory.stream()
+                .map(transaction -> transaction.toString() + "\n")
+                .collect(Collectors.joining());
+        return history.trim();
     }
 }
