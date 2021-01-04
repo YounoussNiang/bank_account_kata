@@ -1,5 +1,6 @@
 package org.formation.kata.bank.account.business;
 
+import org.formation.kata.bank.account.exception.CustomerNotFoundException;
 import org.formation.kata.bank.account.exception.InsufficientBalanceException;
 import org.formation.kata.bank.account.exception.TooLowAmountException;
 
@@ -7,7 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class Bank {
+
     private final List<Customer> customers;
+    private static final double MINIMUM_DEPOSIT_VALUE = 0.01;
 
     public Bank(List<Customer> customers) {
         this.customers = customers;
@@ -15,33 +18,34 @@ public class Bank {
 
     public Balance deposit(Customer currentCustomer, double amount) {
         checkDepositValidity(amount);
-        Balance newBalance = null;
-        Optional<Customer> optionalClient = customers.stream()
-                .filter(currentCustomer::equals)
-                .findFirst();
+        Optional<Customer> optionalClient = findCurrentCustomerInDatabase(currentCustomer);
         if(optionalClient.isPresent()){
             Customer customer = optionalClient.get();
-            newBalance = customer.deposit(amount);
+            return customer.deposit(amount);
         }
-
-        return newBalance;
+        throw new CustomerNotFoundException();
     }
 
     public Balance withdraw(Customer currentCustomer, double amount) {
         checkWithdrawValidity(currentCustomer, amount);
-        Balance newBalance = null;
-        Optional<Customer> optionalClient = customers.stream()
-                .filter(currentCustomer::equals)
-                .findFirst();
+        Optional<Customer> optionalClient = findCurrentCustomerInDatabase(currentCustomer);
         if(optionalClient.isPresent()) {
             Customer customer = optionalClient.get();
-            newBalance = customer.withdraw(amount);
+            return customer.withdraw(amount);
         }
-        return newBalance;
+        throw new CustomerNotFoundException();
+    }
+
+    public String checkBalanceAccount(Customer currentCustomer) {
+        Optional<Customer> optionalClient = findCurrentCustomerInDatabase(currentCustomer);
+        if(optionalClient.isPresent()) {
+            Customer customer = optionalClient.get();
+            return customer.displayBalanceAccount();
+        }
+        throw new CustomerNotFoundException();
     }
 
     private void checkDepositValidity(double amount) {
-        double MINIMUM_DEPOSIT_VALUE = 0.01;
         if(amount < MINIMUM_DEPOSIT_VALUE)
             throw new TooLowAmountException();
     }
@@ -51,15 +55,9 @@ public class Bank {
             throw new InsufficientBalanceException();
     }
 
-    public String checkBalanceAccount(Customer currentCustomer) {
-        String stringifyBalance = null;
-        Optional<Customer> optionalClient = customers.stream()
-                .filter(currentCustomer::equals)
+    private Optional<Customer> findCurrentCustomerInDatabase(Customer customer){
+        return customers.stream()
+                .filter(customer::equals)
                 .findFirst();
-        if(optionalClient.isPresent()) {
-            Customer customer = optionalClient.get();
-            stringifyBalance = customer.displayBalanceAccount();
-        }
-        return stringifyBalance;
     }
 }
