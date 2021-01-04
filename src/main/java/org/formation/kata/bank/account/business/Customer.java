@@ -26,7 +26,6 @@ public class Customer {
         return account.checkBalance();
     }
 
-
     public String displayAccountTransactionHistory() {
         return account.generateTransactionHistory();
     }

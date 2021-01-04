@@ -10,7 +10,7 @@ import java.util.Optional;
 public class Bank {
 
     private final List<Customer> customers;
-    private static final double MINIMUM_DEPOSIT_VALUE = 0.01;
+    private final double MINIMUM_DEPOSIT_VALUE = 0.01;
 
     public Bank(List<Customer> customers) {
         this.customers = customers;
