@@ -66,6 +66,18 @@ public class BankTest {
         List<Client> clients = List.of(client);
         Bank bank = new Bank(clients);
 
-        assertThrows(InsufficientBalanceException.class, () -> bank.withdraw(client, 100.0));
+        assertThrows(InsufficientBalanceException.class,
+                () -> bank.withdraw(client, 100.0));
+    }
+
+    @Test
+    public void shouldDisplayAccountBalance(){
+        Account account = new Account(100.0);
+        Client client = new Client(account);
+        List<Client> clients = List.of(client);
+        Bank bank = new Bank(clients);
+
+        assertEquals("100.OO £", bank.checkBalanceAccount());
+
     }
 }

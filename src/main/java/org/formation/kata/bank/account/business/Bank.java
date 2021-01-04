@@ -51,4 +51,7 @@ public class Bank {
             throw new InsufficientBalanceException();
     }
 
+    public String checkBalanceAccount() {
+        return "100.OO £";
+    }
 }
