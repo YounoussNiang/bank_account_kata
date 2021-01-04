@@ -10,7 +10,7 @@ import java.util.Optional;
 public class Bank {
 
     private final List<Customer> customers;
-    private static final double MINIMUM_DEPOSIT_VALUE = 0.01;
+    private final double MINIMUM_DEPOSIT_VALUE = 0.01;
 
     public Bank(List<Customer> customers) {
         this.customers = customers;
@@ -36,11 +36,21 @@ public class Bank {
         throw new CustomerNotFoundException();
     }
 
-    public String checkBalanceAccount(Customer currentCustomer) {
+    public String displayBalanceAccount(Customer currentCustomer) {
         Optional<Customer> optionalClient = findCurrentCustomerInDatabase(currentCustomer);
         if(optionalClient.isPresent()) {
             Customer customer = optionalClient.get();
-            return customer.displayBalanceAccount();
+            return customer.checkBalanceAccount();
+        }
+        throw new CustomerNotFoundException();
+    }
+
+
+    public String displayTransactionHistory(Customer currentCustomer) {
+        Optional<Customer> optionalClient = findCurrentCustomerInDatabase(currentCustomer);
+        if(optionalClient.isPresent()){
+            Customer customer = optionalClient.get();
+            return customer.displayAccountTransactionHistory();
         }
         throw new CustomerNotFoundException();
     }
@@ -60,4 +70,5 @@ public class Bank {
                 .filter(customer::equals)
                 .findFirst();
     }
+
 }

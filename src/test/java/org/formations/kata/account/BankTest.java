@@ -87,13 +87,53 @@ public class BankTest {
         }
     }
 
-    @Test
-    public void shouldDisplayAccountBalance(){
-        Account account = new Account(120.45);
-        Customer customer = new Customer(account);
-        List<Customer> customers = List.of(customer);
-        Bank bank = new Bank(customers);
+    @Nested
+    class Format {
 
-        assertEquals("120.45 £", bank.checkBalanceAccount(customer));
+        @Test
+        public void shouldThrowCustomerNotFoundExceptionWhenCustomerDoesntExist() {
+            Account account = new Account(230.0);
+            Customer customer = new Customer(account);
+            Bank bank = new Bank(List.of());
+
+            assertThrows(CustomerNotFoundException.class,
+                    () -> bank.displayBalanceAccount(customer));
+        }
+
+        @Test
+        public void shouldThrowCustomerNotFoundExceptionWhenNonExistentCustomerCheckTransactionHistory() {
+            Account account = new Account(230.0);
+            Customer customer = new Customer(account);
+            Bank bank = new Bank(List.of());
+
+            assertThrows(CustomerNotFoundException.class,
+                    () -> bank.displayTransactionHistory(customer));
+        }
+
+
+        @Test
+        public void shouldDisplayAccountBalance() {
+            Account account = new Account(120.45);
+            Customer customer = new Customer(account);
+            List<Customer> customers = List.of(customer);
+            Bank bank = new Bank(customers);
+
+            assertEquals("120.45 £", bank.displayBalanceAccount(customer));
+        }
+
+
+        @Test
+        public void shouldDisplayTransactionHistory() {
+            Account account = new Account(50.0);
+            Customer customer = new Customer(account);
+            List<Customer> customers = List.of(customer);
+            Bank bank = new Bank(customers);
+
+            bank.deposit(customer, 100);
+            bank.withdraw(customer, 20);
+            bank.displayBalanceAccount(customer);
+
+            assertEquals("DEPOSIT: 100.0 £\nWITHDRAW: 20.0 £", bank.displayTransactionHistory(customer));
+        }
     }
 }
