@@ -11,6 +11,12 @@ public class Client {
         return account.add(amount);
     }
 
+
+    public Balance withdraw(double amount) {
+        return account.subtract(amount);
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -23,4 +29,5 @@ public class Client {
     public int hashCode() {
         return Objects.hash(account);
     }
+
 }

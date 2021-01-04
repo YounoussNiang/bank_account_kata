@@ -22,9 +22,23 @@ public class Bank {
         return newBalance;
     }
 
+    public Balance withdraw(Client currentClient, double amount) {
+        Balance newBalance = null;
+        Optional<Client> optionalClient = clients.stream()
+                .filter(currentClient::equals)
+                .findFirst();
+        if(optionalClient.isPresent()) {
+            Client client = optionalClient.get();
+            newBalance = client.withdraw(amount);
+        }
+        return newBalance;
+    }
+
     private void checkDepositValidity(double amount) {
         double MINIMUM_DEPOSIT_VALUE = 0.01;
         if(amount < MINIMUM_DEPOSIT_VALUE)
             throw new TooLowAmountException();
     }
+
+
 }

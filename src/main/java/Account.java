@@ -8,4 +8,8 @@ public class Account {
     public Balance add(double amount){
         return balance.increment(amount);
     }
+
+    public Balance subtract(double amount) {
+        return balance.decrease(amount);
+    }
 }

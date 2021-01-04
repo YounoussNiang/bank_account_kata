@@ -38,4 +38,16 @@ public class BankTest {
 
         assertThrows(TooLowAmountException.class, () -> bank.deposit(client, 0.0));
     }
+
+    @Test
+    public void shouldReturnNewBalanceWhenWithdrawingNewAmount(){
+        Account account = new Account(230.0);
+        Client client = new Client(account);
+        List<Client> clients = List.of(client);
+        Bank bank = new Bank(clients);
+
+        Balance newBalance = bank.withdraw(client, 50.5);
+
+        assertEquals(newBalance, new Balance(179.5));
+    }
 }

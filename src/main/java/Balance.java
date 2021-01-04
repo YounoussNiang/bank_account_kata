@@ -12,6 +12,10 @@ public class Balance {
         return new Balance(value + amount);
     }
 
+    public Balance decrease(double amount) {
+        return new Balance(value - amount);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,4 +28,5 @@ public class Balance {
     public int hashCode() {
         return Objects.hash(value);
     }
+
 }
