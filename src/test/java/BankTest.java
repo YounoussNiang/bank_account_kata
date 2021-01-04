@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BankTest {
 
     @Test
-    public void depositAmount(){
+    public void shouldReturnNewBalanceWhenDeposingNewAmount(){
         Account account = new Account(230.0);
         Client client = new Client(account);
         List<Client> clients = List.of(client);
