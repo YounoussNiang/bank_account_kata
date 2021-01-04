@@ -7,35 +7,35 @@ import java.util.List;
 import java.util.Optional;
 
 public class Bank {
-    private final List<Client> clients;
+    private final List<Customer> customers;
 
-    public Bank(List<Client> clients) {
-        this.clients = clients;
+    public Bank(List<Customer> customers) {
+        this.customers = customers;
     }
 
-    public Balance deposit(Client currentClient, double amount) {
+    public Balance deposit(Customer currentCustomer, double amount) {
         checkDepositValidity(amount);
         Balance newBalance = null;
-        Optional<Client> optionalClient = clients.stream()
-                .filter(currentClient::equals)
+        Optional<Customer> optionalClient = customers.stream()
+                .filter(currentCustomer::equals)
                 .findFirst();
         if(optionalClient.isPresent()){
-            Client client = optionalClient.get();
-            newBalance = client.deposit(amount);
+            Customer customer = optionalClient.get();
+            newBalance = customer.deposit(amount);
         }
 
         return newBalance;
     }
 
-    public Balance withdraw(Client currentClient, double amount) {
-        checkWithdrawValidity(currentClient, amount);
+    public Balance withdraw(Customer currentCustomer, double amount) {
+        checkWithdrawValidity(currentCustomer, amount);
         Balance newBalance = null;
-        Optional<Client> optionalClient = clients.stream()
-                .filter(currentClient::equals)
+        Optional<Customer> optionalClient = customers.stream()
+                .filter(currentCustomer::equals)
                 .findFirst();
         if(optionalClient.isPresent()) {
-            Client client = optionalClient.get();
-            newBalance = client.withdraw(amount);
+            Customer customer = optionalClient.get();
+            newBalance = customer.withdraw(amount);
         }
         return newBalance;
     }
@@ -46,19 +46,19 @@ public class Bank {
             throw new TooLowAmountException();
     }
 
-    private void checkWithdrawValidity(Client client, double amount){
-        if(client.hasToUseOverDraft(amount))
+    private void checkWithdrawValidity(Customer customer, double amount){
+        if(customer.hasToUseOverDraft(amount))
             throw new InsufficientBalanceException();
     }
 
-    public String checkBalanceAccount(Client currentClient) {
+    public String checkBalanceAccount(Customer currentCustomer) {
         String stringifyBalance = null;
-        Optional<Client> optionalClient = clients.stream()
-                .filter(currentClient::equals)
+        Optional<Customer> optionalClient = customers.stream()
+                .filter(currentCustomer::equals)
                 .findFirst();
         if(optionalClient.isPresent()) {
-            Client client = optionalClient.get();
-            stringifyBalance = client.displayBalanceAccount();
+            Customer customer = optionalClient.get();
+            stringifyBalance = customer.displayBalanceAccount();
         }
         return stringifyBalance;
         //"100.OO £";

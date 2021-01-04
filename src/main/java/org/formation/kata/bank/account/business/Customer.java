@@ -2,10 +2,11 @@ package org.formation.kata.bank.account.business;
 
 import java.util.Objects;
 
-public class Client {
+public class Customer {
+
     private final Account account;
 
-    public Client(Account account) {
+    public Customer(Account account) {
         this.account = account;
     }
 
@@ -28,8 +29,8 @@ public class Client {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Client client = (Client) o;
-        return Objects.equals(account, client.account);
+        Customer customer = (Customer) o;
+        return Objects.equals(account, customer.account);
     }
 
     @Override
